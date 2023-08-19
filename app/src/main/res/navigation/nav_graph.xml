@@ -15,9 +15,13 @@
         android:id="@+id/newNoteFragment"
         android:name="com.example.smallnote.fragments.NewNoteFragment"
         android:label="fragment_new_note"
-        tools:layout="@layout/fragment_new_note" />
+        tools:layout="@layout/fragment_new_note" >
+    </fragment>
 
     <action
         android:id="@+id/action_notesFragment_to_newNoteFragment"
         app:destination="@id/newNoteFragment" />
+    <action
+        android:id="@+id/action_newNoteFragment_to_notesFragment"
+        app:destination="@id/notesFragment" />
 </navigation>
