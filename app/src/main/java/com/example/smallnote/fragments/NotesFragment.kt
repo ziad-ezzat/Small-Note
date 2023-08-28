@@ -21,13 +21,13 @@ import java.util.concurrent.TimeUnit
 
 class NotesFragment : Fragment(R.layout.fragment_notes) {
 
-    private val noteViewModel: NoteViewModel by viewModels { NoteViewModelFactory((requireActivity().application as NoteApplication).repository) }
+    private val noteViewModel: NoteViewModel by viewModels { NoteViewModelFactory((requireActivity().application as NoteApplication).repository,requireContext()) }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView(view)
-        setupFabButton()
-        setupPeriodicWorkRequest()
+        setupFabButton(view)
+        noteViewModel.setupPeriodicWorkRequest()
     }
 
     private fun setupRecyclerView(view: View) {
@@ -41,18 +41,10 @@ class NotesFragment : Fragment(R.layout.fragment_notes) {
         })
     }
 
-    private fun setupFabButton() {
-        val fab = requireView().findViewById<FloatingActionButton>(R.id.fab)
+    private fun setupFabButton(view: View) {
+        val fab = view.findViewById<FloatingActionButton>(R.id.fab)
         fab.setOnClickListener {
             findNavController().navigate(R.id.action_notesFragment_to_newNoteFragment)
         }
-    }
-
-    private fun setupPeriodicWorkRequest() {
-        val workRequest = PeriodicWorkRequest.Builder(
-            PostNoteToFirebaseByRetrofitWorker::class.java, 2, TimeUnit.HOURS
-        ).build()
-
-        WorkManager.getInstance(requireContext()).enqueue(workRequest)
     }
 }

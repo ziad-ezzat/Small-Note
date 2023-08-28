@@ -11,10 +11,12 @@ import com.example.smallnote.roomDatabase.Note
 import com.example.smallnote.roomDatabase.NoteApplication
 import com.example.smallnote.roomDatabase.NoteViewModel
 import com.example.smallnote.roomDatabase.NoteViewModelFactory
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 class NewNoteFragment : Fragment(R.layout.fragment_new_note) {
 
-    private val noteViewModel: NoteViewModel by viewModels { NoteViewModelFactory((requireActivity().application as NoteApplication).repository) }
+    private val noteViewModel: NoteViewModel by viewModels { NoteViewModelFactory((requireActivity().application as NoteApplication).repository,requireContext()) }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
