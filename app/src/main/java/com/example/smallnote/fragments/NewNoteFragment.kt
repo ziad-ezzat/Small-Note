@@ -16,7 +16,9 @@ import kotlinx.coroutines.launch
 
 class NewNoteFragment : Fragment(R.layout.fragment_new_note) {
 
-    private val noteViewModel: NoteViewModel by viewModels { NoteViewModelFactory((requireActivity().application as NoteApplication).repository,requireContext()) }
+    private val noteViewModel: NoteViewModel by viewModels {
+        NoteViewModelFactory((requireActivity().application as NoteApplication).repository)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

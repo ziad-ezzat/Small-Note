@@ -1,8 +1,9 @@
 package com.example.smallnote.roomDatabase
 
 import kotlinx.coroutines.flow.Flow
+import javax.inject.Inject
 
-class NoteRepo(private val noteDao: NoteDao) {
+class NoteRepo @Inject constructor(private val noteDao: NoteDao) {
 
     val allNotes: Flow<List<Note>> = noteDao.getAllNotes()
 

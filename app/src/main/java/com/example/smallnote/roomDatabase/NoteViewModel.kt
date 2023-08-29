@@ -10,9 +10,12 @@ import androidx.work.PeriodicWorkRequest
 import androidx.work.WorkManager
 import kotlinx.coroutines.launch
 import com.example.smallnote.workManager.*
+import dagger.hilt.android.lifecycle.HiltViewModel
 import java.util.concurrent.TimeUnit
+import javax.inject.Inject
 
-class NoteViewModel(private val appContext: Context, private val repo: NoteRepo): ViewModel() {
+@HiltViewModel
+class NoteViewModel @Inject constructor(private val repo: NoteRepo): ViewModel() {
 
     val allNotes: LiveData<List<Note>> = repo.allNotes.asLiveData()
 
@@ -25,6 +28,6 @@ class NoteViewModel(private val appContext: Context, private val repo: NoteRepo)
             PostNoteToFirebaseByRetrofitWorker::class.java, 2, TimeUnit.HOURS
         ).build()
 
-        WorkManager.getInstance(appContext).enqueue(workRequest)
+        WorkManager.getInstance().enqueue(workRequest)
     }
 }

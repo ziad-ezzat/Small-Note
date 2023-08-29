@@ -17,11 +17,15 @@ import com.example.smallnote.roomDatabase.NoteViewModel
 import com.example.smallnote.roomDatabase.NoteViewModelFactory
 import com.example.smallnote.workManager.PostNoteToFirebaseByRetrofitWorker
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import dagger.hilt.android.AndroidEntryPoint
 import java.util.concurrent.TimeUnit
 
+@AndroidEntryPoint
 class NotesFragment : Fragment(R.layout.fragment_notes) {
 
-    private val noteViewModel: NoteViewModel by viewModels { NoteViewModelFactory((requireActivity().application as NoteApplication).repository,requireContext()) }
+    private val noteViewModel: NoteViewModel by viewModels {
+        NoteViewModelFactory((requireActivity().application as NoteApplication).repository)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
