@@ -40,7 +40,9 @@ class PostNoteToFirebaseByRetrofitWorker(appContext: Context, workerParams: Work
                    GlobalScope.launch {
                             val response = apiInterface.postNote(
                                 Note(
-                                    note.note
+                                    note.note,
+                                    note.latitude,
+                                    note.longitude
                                 )
                             )
                             if (response.isSuccessful) {
